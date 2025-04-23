@@ -1,6 +1,7 @@
 use std::str::FromStr;
 use std::time::Duration;
 
+use base64::prelude::*;
 use clap::Args;
 use colored::Colorize;
 use dialoguer::Confirm;
@@ -48,7 +49,7 @@ pub struct VaultTransactionCreate {
     vault_index: u8,
 
     #[arg(long)]
-    transaction_message: Vec<u8>,
+    transaction_message: String,
 
     /// Memo to be included in the transaction
     #[arg(long)]
@@ -92,6 +93,9 @@ impl VaultTransactionCreate {
 
         let transaction_pda = get_transaction_pda(&multisig, transaction_index, Some(&program_id));
         let proposal_pda = get_proposal_pda(&multisig, transaction_index, Some(&program_id));
+
+        let transaction_message = BASE64_STANDARD.decode(transaction_message.as_bytes())?;
+
         println!();
         println!(
             "{}",

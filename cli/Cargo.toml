@@ -26,3 +26,4 @@ clap_v3 = { package = "clap", version = "3.0", optional = false }  # The version
 solana-address-lookup-table-program = "1.18.3"
 spl-token = "4.0.0"
 spl-associated-token-account = "2.3.0"
+base64 = "0.22.1"
